@@ -26,10 +26,10 @@ let ping = function(serverURL) {
 };
 
 const RTT = async function(){
-    const serverURL = 'https://www.rutgers.edu/';
+    //const serverURL = 'https://www.rutgers.edu/';
     //const serverURL = 'https://jasmine.github.io/';
     //const serverURL = 'https://www.amazon.in/';
-    //const serverURL = 'https://www.megekko.nl/product/2077/281611/Monitoren/Samsung-LS24R652FDUXEN-24-FHD-IPS-monitor';
+    const serverURL = 'https://www.megekko.nl/product/2077/281611/Monitoren/Samsung-LS24R652FDUXEN-24-FHD-IPS-monitor';
     var promise = [];
 
     for(var i =0; i<10;i++){
@@ -54,4 +54,4 @@ RTT().then((avg)=>{
 });
 
 //Exporting module
-module.exports = { RTT };
+module.exports = { RTT, ping };

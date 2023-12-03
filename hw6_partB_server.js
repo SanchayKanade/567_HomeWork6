@@ -6,10 +6,11 @@ const http = require('http');
 
 //These are the valid content type suported by the server
 const supprotedContentTypes = ['application/json', 'text/plain', 'text/xml'];
+const rtt = 99;
 
 const server = http.createServer((req, res) => {
     
-    const delay = 10;  //in milliseconds
+    const delay = Math.random() * rtt;  //in milliseconds
     setTimeout(() => {
 
         //Check for POST request

@@ -2,7 +2,7 @@
 
 const jasmine = require('jasmine');
 
-const { averageRTT } = require('../hw6_partA');
+const { RTT, ping } = require('../hw6_partA');
 const { server } = require('../hw6_partB_server');
 const { client } = require('../hw6_partB_client');
 
@@ -33,6 +33,8 @@ describe("Application Server Tests:", function() {
         console.log("---------------------------------------");
     });
 
+
+    ////Test cases for part B
     it("Should return 415 for unsupported Content-Type.", async function() {
         await supertest(server)
         .post('')
@@ -110,4 +112,30 @@ describe("Application Server Tests:", function() {
         .set('Content-Type', 'text/plain')
         .expect(200);
     });
+
+    //Test cases for part A
+    it("ping() function works ", async function () {
+        ping("https://www.rutgers.edu/");
+    });
+    
+    it("ping() function works outside US", async function () {
+        ping("https://www.amazon.in/");
+    });
+
+    it('RTT gives average', async () => {
+        const distantServerURL = 'https://www.rutgers.edu/';
+        const rtt = await RTT(distantServerURL);
+        
+        expect(rtt).toBeGreaterThan(0);
+    });
+
+    it('RTT should handle requests to a server on another continent and give average', async () => {
+        const distantServerURL = 'https://www.nitap.ac.in';
+        const rtt = await RTT(distantServerURL);
+        
+        expect(rtt).toBeGreaterThan(0);
+    });
+
+
+
 });

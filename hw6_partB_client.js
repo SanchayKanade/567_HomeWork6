@@ -3,7 +3,8 @@ Sanchay Kanade sk2656
 */
 
 let text = "text_1 Server Response Received";
-let delay = 100; // "rtt"
+const rtt = 99;
+let delay = Math.random() * rtt * 3; // "rtt"
 
 setTimeout(() => {text = "text_22: Response Timed Out";}, delay);
 
@@ -17,17 +18,27 @@ headers: {
 body: text
 });
 
+let sendTime = new Date().getTime();
+let receiveTime;
+let rtt1;
+
 fetch(myRequest) // use fetch(), not Postman’s sendRequest()
  .then((response) => {
- if (!response.ok) {
- throw new Error(`HTTP error! Status: ${response.status}`);
- }
- return response.json();
+
+    receiveTime = new Date().getTime(); 
+    rtt1 = receiveTime - sendTime; 
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
  //console.log( response.blob() == text);
- }).then(data =>{
-    console.log(data);
-    console.log(text);
-    console.log(data === text);
+    }).then(data =>{
+        console.log("Data sent: ",data);
+        console.log("Data Received: ",text);
+        console.log(data === text);
+        console.log("Delay introduced is: ", delay);
+        console.log("Response time:",rtt1);
  });
 
  //Exporting module
